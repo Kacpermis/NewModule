@@ -41,7 +41,9 @@ print('polish_numbers =', polish_numbers)  # ==> polish_numbers = ['123456789', 
 
 files = ['pierwszy.txt', 'drugi.txt', 'ten powinien być usunięty.zip']
 
+def txt_search():
+    txt_files = [file for file in files if file[-4:] == ".txt" ]
+    print('Txt files: ', txt_files)
 
-txt_files = [file for file in files if file[-4:] == ".txt" ]
-print('Txt files: ', txt_files)
+txt_search()
 
