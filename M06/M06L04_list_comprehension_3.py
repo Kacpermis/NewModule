@@ -41,11 +41,18 @@ print(sum(flat))
 
 # Napisz testy!
 
-comments = [
-    ['pierwszy', 'komentarz'],
-    ['drugi', 'komentarz'],
-]
+
 
 def get_unique_words(comments):
     return list(set([w for words in comments for w in words]))
 
+def main():
+    comments = [
+        ['pierwszy', 'komentarz'],
+        ['drugi', 'komentarz'],
+    ]
+    words = get_unique_words(comments)
+    print('words=', words)
+
+if __name__ == '__main__':
+    main()
