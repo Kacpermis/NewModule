@@ -45,3 +45,7 @@ comments = [
     ['pierwszy', 'komentarz'],
     ['drugi', 'komentarz'],
 ]
+
+def get_unique_words(comments):
+    return list(set([w for words in comments for w in words]))
+
