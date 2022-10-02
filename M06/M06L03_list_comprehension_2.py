@@ -35,6 +35,15 @@ def compute_average_length(text):
     lenghts = [len(w) for w in without_numbers]
     average = sum(lenghts) / len(lenghts)
 
+def main():
+    text = input('Podaj tekst: ')
+    average = compute_average_length(text)
+    print(f'Average length of a word: {average:.2f}')
+
+if __name__ == '__main__':
+    main()
+
+
 
 
     
