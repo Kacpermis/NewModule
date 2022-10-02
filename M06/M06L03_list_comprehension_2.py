@@ -23,12 +23,19 @@ print('total =', total)
 
 PUNCTUACTION = '.,!?'
 
-text = input("Podaj tekst: ")
 
 def remove_punctuaction(text):
     for punc in PUNCTUACTION:
         text = text.replace(punc, ' ')
     return text
+
+def compute_average_length(text):
+    words = remove_punctuaction(text).split()
+    without_numbers = [w for w in words if not w.isnumeric()]
+    lenghts = [len(w) for w in without_numbers]
+    average = sum(lenghts) / len(lenghts)
+
+
 
     
 
