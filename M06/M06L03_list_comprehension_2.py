@@ -20,3 +20,15 @@ print('total =', total)
 # Popraw kod tak, aby nie zliczał spacji ani znaków interpunkcyjnych. Dodatkowo, jeśli w tekście pojawiają się liczby, to również nie bierz ich pod uwagę.
 
 # Napisz testy!
+
+PUNCTUACTION = '.,!?'
+
+text = input("Podaj tekst: ")
+
+def remove_punctuaction(text):
+    for punc in PUNCTUACTION:
+        text = text.replace(punc, ' ')
+    return text
+
+    
+
