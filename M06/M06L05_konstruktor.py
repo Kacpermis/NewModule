@@ -53,3 +53,45 @@ print('e.description =', e.description)
 # Dużo lepiej jest reprezentować operację jako obiekt własnej klasy RenameOperation.
 
 # Stwórz taką klasę i przepisz kod tak, aby ją wykorzystywał.
+import os
+import glob
+
+
+pattern = input('Podaj pattern: ')
+ext = '.bak'
+files = glob.glob(pattern)
+operations = []
+
+def ext_changing():
+    for x in files:
+        if '.' in x:
+            name = x.rsplit('.', 1)
+            nazwa, extension = name   
+        else:
+            name = x
+            extension = ""
+        new_filename = nazwa + ext
+        operation = [x, new_filename]
+        operations.append(operation)
+
+def show_change():
+    print("Zostana dokonane nastepujace zmiany: ")
+    for old, new in operations:
+        print(old, "--->", new)
+
+def execute_change():
+    for old, new in operations:
+            os.rename(old, new)
+            print("Zmieniono", old, "--->", new)
+
+def main():
+    ext_changing()
+    show_change()
+    zgoda = input('Kontynuowac? [t/n]')
+    if zgoda.lower() == 't':
+        execute_change()
+    else:
+        print('Anulowano')
+
+if __name__ == "__main__":
+    main()
