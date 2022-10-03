@@ -62,6 +62,11 @@ ext = '.bak'
 files = glob.glob(pattern)
 operations = []
 
+class RenameOperation:
+    def __init__(self, old, new):
+        self.old = old
+        self.new = new
+
 def ext_changing():
     for x in files:
         if '.' in x:
@@ -71,25 +76,25 @@ def ext_changing():
             name = x
             extension = ""
         new_filename = nazwa + ext
-        operation = [x, new_filename]
+        operation = RenameOperation(x, new_filename)
         operations.append(operation)
 
-def show_change():
+def show_change(operations):
     print("Zostana dokonane nastepujace zmiany: ")
-    for old, new in operations:
-        print(old, "--->", new)
+    for op in operations:
+        print(op.old, "--->", op.new)
 
-def execute_change():
-    for old, new in operations:
-            os.rename(old, new)
-            print("Zmieniono", old, "--->", new)
+def execute_change(operations):
+    for op in operations:
+            os.rename(op.old, op.new)
+            print("Zmieniono", op.old, "--->", op.new)
 
 def main():
     ext_changing()
-    show_change()
+    show_change(operations)
     zgoda = input('Kontynuowac? [t/n]')
     if zgoda.lower() == 't':
-        execute_change()
+        execute_change(operations)
     else:
         print('Anulowano')
 
