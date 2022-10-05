@@ -34,14 +34,10 @@ print(e1 == e2)  # ==> True
 ### 🔴 Ćwiczenie
 
 # W poprzednim ćwiczeniu napisz testy funkcji collect_operation. Będzie to wymagało zaimplementowania metody RenameOperation.__eq__.
+from gc import collect
 import os
 import glob
-
-
-pattern = input('Podaj pattern: ')
-ext = '.bak'
-files = glob.glob(pattern)
-operations = []
+EXTENSION = '.bak'
 
 class RenameOperation:
     def __init__(self, old, new):
@@ -63,17 +59,20 @@ class RenameOperation:
             
 
 
-def ext_changing():
-    for x in files:
-        if '.' in x:
-            name = x.rsplit('.', 1)
-            nazwa, extension = name   
-        else:
-            name = x
-            extension = ""
-        new_filename = nazwa + ext
-        operation = RenameOperation(x, new_filename)
-        operations.append(operation)
+def ext_changing(filename):
+    if '.' in filename:
+        tokens = filename.rsplit('.', 1)
+        name, extension = tokens   
+    else:
+        name = filename
+        extension = ""
+    return [name, extension]
+
+def collect_operation(filename):
+        name, extension = ext_changing(filename)
+        new_filename = name + EXTENSION
+        operation = RenameOperation(filename, new_filename)
+        return operation
 
 def show_change(operations):
     print("Zostana dokonane nastepujace zmiany: ")
@@ -87,7 +86,10 @@ def execute_change(operations):
         
 
 def main():
-    ext_changing()
+    pattern = input('Podaj pattern: ')
+    filenames = glob.glob(pattern)
+    operations = [collect_operation(filename) for filename in filenames]
+
     show_change(operations)
     zgoda = input('Kontynuowac? [t/n]')
     if zgoda.lower() == 't':
