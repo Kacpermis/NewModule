@@ -18,11 +18,14 @@ class RenameOperation:
         self.old = old
         self.new = new
 
-    def display(self):
-        print(self.old, "-->", self.new)
-
     def execute(self):
             os.rename(self.old, self.new)
+
+    def __str__(self):
+        return f"{self.old} -> {self.new}"
+    
+    def _repr__(self):
+        return f"RenameOperation(old={self.old!r}, new={self.new!r}"
             
 
 
@@ -41,7 +44,7 @@ def ext_changing():
 def show_change(operations):
     print("Zostana dokonane nastepujace zmiany: ")
     for op in operations:
-        op.display()
+        print(op)
 
 def execute_change(operations):
     for op in operations:
