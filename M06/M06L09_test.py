@@ -15,3 +15,7 @@ def test_ext_changing_multiple_dots():
     expected = RenameOperation('long.name.txt', 'long.name.bak')
     assert got == expected
 
+def test_ext_changing_empty_extension():
+    got = ext_changing('file.')
+    expected = RenameOperation('file.', 'file.bak')
+    assert got == expected
