@@ -22,7 +22,7 @@ class RenameOperation:
         print(self.old, "-->", self.new)
 
     def execute(self):
-            os.rename(op.old, op.new)
+            os.rename(self.old, self.new)
             
 
 
@@ -41,11 +41,11 @@ def ext_changing():
 def show_change(operations):
     print("Zostana dokonane nastepujace zmiany: ")
     for op in operations:
-        RenameOperation.display()
+        op.display()
 
 def execute_change(operations):
     for op in operations:
-        RenameOperation.execute()
+        op.execute()
         print("Zmieniono", op.old, "--->", op.new)
         
 
