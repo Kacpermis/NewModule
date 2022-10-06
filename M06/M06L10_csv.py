@@ -36,18 +36,32 @@ def read_toDo(filename):
 def ToDoItem_from_dict(row):
     return TodoItem(
         id=int(row['id']),
-        description=row(['desc']),
+        description=row['desc'],
         done=(row['done'] == 'x'),
     )
 
 
-def description():
+def description(todos):
     print("  ID  DONE? DESCRIPTION")
     print('---- ----- ------------')
+    for todo in todos:
+        if todo.done:
+            done = 'x'
+        else:
+            done = '-'
+        print(f"{todo.id:6d} {done:^5} {todo.description}")
+    
+def summary(todos):
+    done = len([t for t in todos if t.done])
+    all_ = len(todos)
+
+    print()
+    print(f"Number of fullfiled tasks: {done}/{all_}")
 
 def main():
-    read_toDo()
-    description()
+    todos = read_toDo(TODOS_FILENAME)
+    description(todos)
+    summary(todos)
 
 if __name__ == "__main__":
     main()
