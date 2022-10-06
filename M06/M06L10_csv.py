@@ -6,10 +6,10 @@
 
 import csv
 
-with open("M06/expenses.csv") as stream:
-    reader = csv.DictReader(stream)  # Od tego momentu już nie operujemy bezpośrednio na strumieniu, tylko na readerze.
-    for row in reader:  # Ten fragment musi byc zagnieżdżony, bo reader na bieżąco odczytuje plik linia po linii!
-        print(row)
+# with open("M06/expenses.csv") as stream:
+#     reader = csv.DictReader(stream)  # Od tego momentu już nie operujemy bezpośrednio na strumieniu, tylko na readerze.
+#     for row in reader:  # Ten fragment musi byc zagnieżdżony, bo reader na bieżąco odczytuje plik linia po linii!
+#         print(row)
 
 ### 🔴 Ćwiczenie
 
@@ -18,3 +18,27 @@ with open("M06/expenses.csv") as stream:
 # Program powinien wczytać listę zadań z pliku CSV takiego jak todos.csv, a następnie wyświetlić wszystkie zadania w tabeli, a także podsumowanie ile zadań jest już wykonanych.
 
 # Każde zadanie składa się z id, opisu oraz informacji, czy zadanie zostało już wykonane (znak 'x'), czy jeszcze nie (znak '-').
+import csv
+
+
+class RenameOperation:
+    def __init__(self, toDo, Done):
+        self.old = toDo
+        self.new = Done
+
+
+def read_toDo():
+    with open("M06\\todos.csv") as stream:
+        toDos = csv.DictReader(stream)
+        print(toDos)
+
+def description():
+    print("  ID  DONE? DESCRIPTION")
+    print('---- ----- ------------')
+
+def main():
+    read_toDo()
+    description()
+
+if __name__ == "__main__":
+    main()
