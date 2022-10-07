@@ -16,24 +16,45 @@ class timeTrack:
     def __init__(self, desc: str, time: int, tag: str):
         self.desc = desc
         self.time = time
-        self.tag = tag
+        self.tags = tag
+    
+    def __repr__(self):
+        return f"timeTrack(desc={self.desc!r}, time={self.time!r}, tags={self.tag!r})"
+    
+    def __str__(self):
+        tags = [f'#{t}' for t in self.tags]
+        tags = " ".join(tags)
+        return f"{self.desc} ({self.time} min) {tags}"
 
 def file_reader():
     with open(FILENAME) as stream:
         read = csv.DictReader(stream)
         sorted = [timeTrack_dict(row) for row in read]
-    print(sorted)
     return sorted
 
 def timeTrack_dict(row: Dict[str, str]) -> timeTrack:
-    return timeTrack(
-        desc=row['desc'],
-        time=int(row['time']),
-        tag=row['tags'],
+    tags = row['tags'].split(' ')
+    tags = [tag.strip() for tag in tags]
+    entry = timeTrack(
+        desc=row['desc'].strip(),
+        time=int(['time'].strip()),
+        tags=tags,
     )
+    return timeTrack
 
-def main():
-    file_reader()
 
-if __name__ == "__main__":
-    main()
+    
+
+
+def time_of_tags(entries):
+    tags = {t for e in entries for t in e.tags}
+    report = {}
+    for tag in tags:
+        total = sum([e.time for e in entries if tag in e.tags])
+        report[tag] = total
+    return report
+
+# def description(sorted: List[timeTrack]) -> None:
+#     print("TOTAL-TIME  TAG")
+#     for sort in sorted:
+    
