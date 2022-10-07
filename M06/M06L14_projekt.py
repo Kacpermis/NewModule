@@ -13,10 +13,10 @@ import sys
 FILENAME = sys.argv[1]
 
 class timeTrack:
-    def __init__(self, desc: str, time: int, tag: str):
+    def __init__(self, desc: str, time: int, tags: str):
         self.desc = desc
         self.time = time
-        self.tags = tag
+        self.tags = tags
     
     def __repr__(self):
         return f"timeTrack(desc={self.desc!r}, time={self.time!r}, tags={self.tag!r})"
@@ -26,35 +26,39 @@ class timeTrack:
         tags = " ".join(tags)
         return f"{self.desc} ({self.time} min) {tags}"
 
+def timeTrack_dict(row: Dict) -> timeTrack:
+    tags = row['tags'].split(' ')
+    time = timeTrack(
+        desc=row['desc'].strip(),
+        time=int(row['time'].strip()),
+        tags=tags,
+    )
+    return time
+
 def file_reader():
     with open(FILENAME) as stream:
         read = csv.DictReader(stream)
         sorted = [timeTrack_dict(row) for row in read]
     return sorted
 
-def timeTrack_dict(row: Dict[str, str]) -> timeTrack:
-    tags = row['tags'].split(' ')
-    tags = [tag.strip() for tag in tags]
-    entry = timeTrack(
-        desc=row['desc'].strip(),
-        time=int(['time'].strip()),
-        tags=tags,
-    )
-    return timeTrack
 
-
-    
-
-
-def time_of_tags(entries):
-    tags = {t for e in entries for t in e.tags}
+def time_of_tags(sorted):
+    tags = {t for s in sorted for t in s.tags}
     report = {}
     for tag in tags:
-        total = sum([e.time for e in entries if tag in e.tags])
+        total = sum([e.time for e in sorted if tag in e.tags])
         report[tag] = total
     return report
 
-# def description(sorted: List[timeTrack]) -> None:
-#     print("TOTAL-TIME  TAG")
-#     for sort in sorted:
-    
+def display(time_by_tags):
+    print('TOTAL-TIME  TAG')
+    for tag, time in time_by_tags.items():
+        print(f'{time:10}  #{tag}')
+
+def main():
+    sorted = file_reader()
+    report = time_of_tags(sorted)
+    display(report)
+
+if __name__ == "__main__":
+    main()
