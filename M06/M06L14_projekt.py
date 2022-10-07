@@ -7,3 +7,33 @@
 # 3. Program przyjmuje scieżkę do pliku CSV jako argument linii poleceń. Następnie wyświetla raport. Każda jego linia to jeden tag. Dla każdego tagu wyliczona jest suma wszystkich otagowanych nim zadań.
 
 # 4. Nie musisz pisać testów, ale podziel program na funkcje tak, aby każda z nich robiła tylko jedną rzecz.
+import csv
+from typing import Dict, List
+import sys
+FILENAME = sys.argv[1]
+
+class timeTrack:
+    def __init__(self, desc: str, time: int, tag: str):
+        self.desc = desc
+        self.time = time
+        self.tag = tag
+
+def file_reader():
+    with open(FILENAME) as stream:
+        read = csv.DictReader(stream)
+        sorted = [timeTrack_dict(row) for row in read]
+    print(sorted)
+    return sorted
+
+def timeTrack_dict(row: Dict[str, str]) -> timeTrack:
+    return timeTrack(
+        desc=row['desc'],
+        time=int(row['time']),
+        tag=row['tags'],
+    )
+
+def main():
+    file_reader()
+
+if __name__ == "__main__":
+    main()
