@@ -25,6 +25,7 @@
 # Jakiej funkcji użyjesz do sprawdzenia, czy plik już istnieje?
 # Napisz testy! W jaki sposób przetestujesz swój kod?
 
+from os.path import exists
 from typing import Tuple, Optional
 
 def split_name(filename: str) -> Tuple[str, Optional[str]]:
@@ -40,3 +41,17 @@ def construct_filename(name: str, counter: int, ext: Optional[str]) -> str:
     else:
         ext_part = '.' + ext
     return f'{name}-{counter}{ext_part}'
+
+def generate_name(filename: str) -> str:
+    if exists(filename):
+        name, ext = split_name(filename)
+        counter = 2
+
+        while True:
+            new_filename = construct_filename(name, counter, ext)
+            if not exists(new_filename):
+                break
+            counter += 1
+        return new_filename
+    else: 
+        return filename
