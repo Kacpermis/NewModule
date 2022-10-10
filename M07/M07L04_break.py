@@ -1,18 +1,18 @@
 ### 🔴 Instrukcja break
 
 # Funkcja eval
-result = eval('2+2')
-print('result =', result)
-print('type(result) =', type(result))
+# result = eval('2+2')
+# print('result =', result)
+# print('type(result) =', type(result))
 
-# Przykładowy REPL - Read-Eval-Print Loop.
-while True:
-    expr = input('>>> ')
-    if expr.lower().strip() == 'exit':
-        break  # Instrukcja break natychmiast przerywa wykonywanie pętli i przenosi nas za pętle do 'Finish'
-    result = eval(expr)
-    print(result)
-print('Finish')
+# # Przykładowy REPL - Read-Eval-Print Loop.
+# while True:
+#     expr = input('>>> ')
+#     if expr.lower().strip() == 'exit':
+#         break  # Instrukcja break natychmiast przerywa wykonywanie pętli i przenosi nas za pętle do 'Finish'
+#     result = eval(expr)
+#     print(result)
+# print('Finish')
 
 ### 🔴 Ćwiczenie
 
@@ -24,3 +24,19 @@ print('Finish')
 # Twoim zadaniem jest napisać funkcję, która otrzymuje nazwę pliku i zwraca tą nazwę z doklejoną odpowiednią końcówką "-2", "-3" itd., tak żeby nie nadpisać żadnego pliku.
 # Jakiej funkcji użyjesz do sprawdzenia, czy plik już istnieje?
 # Napisz testy! W jaki sposób przetestujesz swój kod?
+
+from typing import Tuple, Optional
+
+def split_name(filename: str) -> Tuple[str, Optional[str]]:
+    if '.' in filename:
+        name, ext = filename.rsplit('.', maxsplit=1)
+    else: 
+        name, ext = filename, None
+    return name, ext
+
+def construct_filename(name: str, counter: int, ext: Optional[str]) -> str:
+    if ext is None:
+        ext_part = ''
+    else:
+        ext_part = '.' + ext
+    return f'{name}-{counter}{ext_part}'
