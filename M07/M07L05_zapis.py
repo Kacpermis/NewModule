@@ -5,15 +5,34 @@
 # Wymagają one jednak napisania kawałka kodu, który importuje i eksportuje takie dane.
 # Moduł pickle pozwala Ci w bardzo prosty sposób zapisać dowolne obiekty do pliku - liczby, stringi, listy, słowniki, a nawet obiekty Twoich własnych klas.
 
-import pickle
 
-obj = [1, 2, 3]  # To może być dowolny obiekt, który chcesz zapisać.
+# obj = [1, 2, 3]  # To może być dowolny obiekt, który chcesz zapisać.
 
-filename = 'data.db'  # rozszerzenie pliku nie ma znaczenia, tutaj użyliśmy .db
-with open(filename, 'wb') as stream:  # plik należy otworzyć w trybie BINARNYM zamiast tekstowym, stąd litera 'b'
-    pickle.dump(obj, stream)
+# filename = 'data.db'  # rozszerzenie pliku nie ma znaczenia, tutaj użyliśmy .db
+# with open(filename, 'wb') as stream:  # plik należy otworzyć w trybie BINARNYM zamiast tekstowym, stąd litera 'b'
+#     pickle.dump(obj, stream)
 
 ### 🔴 Ćwiczenie
 
 # Napisz program, który tworzy plik todos.db, w którym będzie przechowywana lista zadań.
 # Po uruchomieniu tego programu lista zadań powinna być pusta, chyba że podano przełącznik --example - wówczas powinna zawierać przykładowe zadania (możesz zahardcodować je w kodzie).
+import pickle
+
+import click
+
+DB_FILENAME = 'todos.db'
+
+class TodoItem:
+    def __init__(self, id, description, done):
+        self.id = id
+        self.description = description
+        self.done = done
+    
+    def __eq__(self,other):
+        return self.id == other.id and self.description == other.description and self.done == other.done
+    
+    def __repr__(self):
+        return f"TodoItem(id={self.id!r}, description={self.description!r}, done={self.done!r})"
+
+
+
