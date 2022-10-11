@@ -39,9 +39,9 @@ class TodoItem:
 def main(example):
     if example:
         todos = [
-            TodoItem(id=1, description='Remember to make commits', done=False)
-            TodoItem(id=2, description="Remember to make conventional commits", done=True)
-            TodoItem(id=3, description="Task 3", done=False)
+            TodoItem(id=1, description='Remember to make commits', done=False),
+            TodoItem(id=2, description="Remember to make conventional commits", done=True),
+            TodoItem(id=3, description="Task 3", done=False),
         ]
     else:
         todos = []
@@ -53,4 +53,7 @@ def main(example):
         print("File already exists")
     else:
         print("File created")
+
+if __name__ == "__main__":
+    main()
 
