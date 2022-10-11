@@ -36,7 +36,7 @@ def next_id(todos):
 
 @click.command()
 @click.argument('description')
-def main():
+def main(description):
     try:
         with open(DB_FILENAME, 'rb') as stream:
             todos = pickle.load(stream)
@@ -44,7 +44,15 @@ def main():
         print("File not found")
         sys.exit(1)
 
-    
+    todo = TodoItem(
+        id=next_id(todos),
+        description=description,
+        done=False
+    )
+    todos.append(todo)
+
+    with open(DB_FILENAME, 'wb') as stream:
+        pickle.dump(todos, stream)
     
     print(f'=ID= DONE? ==DESC==')
     for todo in todos:
