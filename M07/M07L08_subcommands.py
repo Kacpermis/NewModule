@@ -105,3 +105,42 @@ def add_new(description, todos):
     )
     todos.append(todo)
 
+@click.group()
+def cli():
+    pass
+
+@cli.command()
+@click.option('--example', is_flag=True)
+def init(example):
+    if example:
+        todos = [
+            TodoItem(id=1, description='Remember to make commits', done=False),
+            TodoItem(id=2, description="Remember to make conventional commits", done=True),
+            TodoItem(id=3, description="Task 3", done=False),
+        ]
+    else:
+        todos = []
+    
+    try:
+        with open(DB_FILENAME, 'xb') as stream:
+            pickle.dump(todos,stream)
+    except FileExistsError:
+        print("File already exists")
+    else:
+        print("File created")
+
+@cli.command()
+def lsit():
+    todos = read_or_exit()
+    print_todos(todos)
+
+@cli.command()
+@click.argument('description')
+def add(description):
+    todos = read_or_exit()
+    add_new(description, todos)
+    save_db(todos)
+    print('Dodano')
+
+if __name__ == "__main__":
+    cli()
