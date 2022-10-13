@@ -4,7 +4,6 @@
 
 # W poprzednim ćwiczeniu zmień zachowanie programu tak, że jeżeli baza danych nie istnieje, wówczas zamiast wyświetlać błąd automatycznie stwórz w pamięci nową, pustą bazę.import pickle
 import pickle
-import sys
 from typing import List
 import click
 
@@ -47,7 +46,7 @@ def save_db(todos, overwrite: bool = True):
         pickle.dump(todos, stream)
 
 def print_todos(todos):
-    print(f'=ID= DONE? ==DESC==')
+    print('=ID= DONE? ==DESC==')
     for todo in todos:
         if todo.done:
             done = 'x'

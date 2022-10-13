@@ -37,9 +37,9 @@ def find_new_id(todos):
     counter = 1
     while is_id_in_use(todos, id=counter):
         counter += 1
-    return
+    return counter
 
-def is_id_in_use(todos):
+def is_id_in_use(todos, id):
     for todo in todos:
         if todo.id == id:
             return True

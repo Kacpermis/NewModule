@@ -8,8 +8,8 @@ def test_generate_name_when_no_file(tmpdir):
 
 def test_generate_name_when_file_exists(tmpdir):
     with tmpdir.as_cwd():
-        open('file.txt', 'w').close()
-        open('file-2.txt', 'w').close()
+        open('file.txt', encoding='UTF-8').close()
+        open('file-2.txt', encoding='UTF-8').close()
         got = generate_name('file.txt')
         expected = 'file-3.txt'
         assert got == expected

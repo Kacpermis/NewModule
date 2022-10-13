@@ -54,7 +54,7 @@ def main(description):
     with open(DB_FILENAME, 'wb') as stream:
         pickle.dump(todos, stream)
     
-    print(f'=ID= DONE? ==DESC==')
+    print('=ID= DONE? ==DESC==')
     for todo in todos:
         if todo.done:
             done = 'x'
@@ -62,5 +62,3 @@ def main(description):
             done = '-'
         print(f'{todo.id:4} {done:^5} {todo.description}')
 
-if __name__ == "__main__":
-    main()

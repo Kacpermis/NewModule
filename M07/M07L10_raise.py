@@ -7,38 +7,38 @@
 # raise ValueError("asdf")
 # raise ValueError  # ✅ można bez nawiasów
 
-# Taki błąd można normalnie obsłużyć instrukcją try-except:
+# # Taki błąd można normalnie obsłużyć instrukcją try-except:
 
-description = ''
-try:
-    if description == "":
-        raise ValueError("Opis nie może być pusty")
-except ValueError:
-    print("Nie można stworzyć zadania - pusty opis")
+# description = ''
+# try:
+#     if description == "":
+#         raise ValueError("Opis nie może być pusty")
+# except ValueError:
+#     print("Nie można stworzyć zadania - pusty opis")
 
-# Przy czym w praktyce najczęściej try-except znajduje się zupełnie gdzie indziej niż raise, inaczej moglibyśmy się ograniczyć do sprawdzania rezultatu if'em:
+# # Przy czym w praktyce najczęściej try-except znajduje się zupełnie gdzie indziej niż raise, inaczej moglibyśmy się ograniczyć do sprawdzania rezultatu if'em:
 
-import csv
+# import csv
 
-def validate_row(row):
-    if 'id' not in row:
-        raise ValueError("Missing id column")
-    if row['id'] == '':
-        raise ValueError('Missing id value')
+# def validate_row(row):
+#     if 'id' not in row:
+#         raise ValueError("Missing id column")
+#     if row['id'] == '':
+#         raise ValueError('Missing id value')
 
-def read_file():
-    rows = []
-    with open('M07/file.csv') as stream:
-        reader = csv.DictReader(stream)
-        for row in reader:
-            validate_row(row)
-            rows.append(row)
-    return rows
+# def read_file():
+#     rows = []
+#     with open('M07/file.csv', 'rb') as stream:
+#         reader = csv.DictReader(stream)
+#         for row in reader:
+#             validate_row(row)
+#             rows.append(row)
+#     return rows
 
-try:
-    read_file()
-except ValueError as e:
-    print(f"Błąd: {e.args[0]}")
+# try:
+#     read_file()
+# except ValueError as e:
+#     print(f"Błąd: {e.args[0]}")
 
 
 ### 🔴 Ćwiczenie
@@ -58,10 +58,8 @@ class TodoItem:
         self.id = id
         self.description = description
         self.done = done
-    
     def __eq__(self,other):
         return self.id == other.id and self.description == other.description and self.done == other.done
-    
     def __repr__(self):
         return f"TodoItem(id={self.id!r}, description={self.description!r}, done={self.done!r})"
 
@@ -69,7 +67,7 @@ def next_id(todos):
     ids = {todo.id for todo in todos}
     counter = 1
     while counter in ids:
-        counter += 1 
+        counter += 1
     return counter
 
 def read_or_init():
@@ -85,12 +83,11 @@ def save_db(todos, overwrite: bool = True):
         mode = 'wb'
     else:
         mode = 'xb'
-    
     with open(DB_FILENAME, mode) as stream:
         pickle.dump(todos, stream)
 
 def print_todos(todos):
-    print(f'=ID= DONE? ==DESC==')
+    print('=ID= DONE? ==DESC==')
     for todo in todos:
         if todo.done:
             done = 'x'
@@ -122,7 +119,6 @@ def init(example):
         ]
     else:
         todos = []
-    
     try:
         with open(DB_FILENAME, 'xb') as stream:
             pickle.dump(todos,stream)
@@ -145,7 +141,6 @@ def add(description):
     except ValueError as e:
         print(f':Error {e.args[0]}')
         sys.exit(1)
-    
     save_db(todos)
     print('Dodano')
 

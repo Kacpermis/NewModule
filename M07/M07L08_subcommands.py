@@ -79,7 +79,7 @@ def read_or_exit():
         sys.exit(1)
     return todos
 
-def save_db(todos, overwrite):
+def save_db(todos, overwrite = True):
     if overwrite:
         mode = 'wb'
     else:
@@ -89,7 +89,7 @@ def save_db(todos, overwrite):
         pickle.dump(todos, stream)
 
 def print_todos(todos):
-    print(f'=ID= DONE? ==DESC==')
+    print('=ID= DONE? ==DESC==')
     for todo in todos:
         if todo.done:
             done = 'x'
@@ -120,7 +120,6 @@ def init(example):
         ]
     else:
         todos = []
-    
     try:
         with open(DB_FILENAME, 'xb') as stream:
             pickle.dump(todos,stream)
@@ -139,7 +138,7 @@ def lsit():
 def add(description):
     todos = read_or_exit()
     add_new(description, todos)
-    save_db(todos)
+    save_db(todos, overwrite = True)
     print('Dodano')
 
 if __name__ == "__main__":

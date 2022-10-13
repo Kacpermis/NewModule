@@ -95,7 +95,7 @@ def save_db(todos, overwrite: bool = True):
         pickle.dump(todos, stream)
 
 def print_todos(todos):
-    print(f'=ID= DONE? ==DESC==')
+    print('=ID= DONE? ==DESC==')
     for todo in todos:
         if todo.done:
             done = 'x'

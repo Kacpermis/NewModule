@@ -43,7 +43,7 @@ def main():
         print("File not found")
         sys.exit(1)
     
-    print(f'=ID= DONE? ==DESC==')
+    print('=ID= DONE? ==DESC==')
     for todo in todos:
         if todo.done:
             done = 'x'

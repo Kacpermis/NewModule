@@ -54,6 +54,4 @@ def main(example):
     else:
         print("File created")
 
-if __name__ == "__main__":
-    main()
 

@@ -1,4 +1,4 @@
-from M07L08_subcommands import next_id, add_new, TodoItem, read_or_exit, save_db, DB_FILENAME
+from M07L08_subcommands import next_id, add_new, TodoItem, read_or_exit, save_db
 
 def test_empty_list():
     todos = []

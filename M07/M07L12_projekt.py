@@ -18,6 +18,7 @@
 import csv
 from pickle import load, dump
 import sys
+from typing import List
 
 from dataclasses import dataclass
 import click
@@ -40,7 +41,7 @@ class Expenses:
         return self.amount >= BIG_EXPENSE
 
 
-def read_or_init():
+def read_or_init() -> List[Expenses]:
     try:
         with open(DB_FILENAME, 'rb') as stream:
             expenses = load(stream)
@@ -64,7 +65,7 @@ def total_expenses(expenses):
     return sum(amounts)
 
 def print_expenses(expenses, total_expenses):
-    print(f'--ID-- -AMOUTNT- -BIG?- --DESCRIPTION-------')
+    print('--ID-- -AMOUTNT- -BIG?- --DESCRIPTION-------')
     for expense in expenses:
         if expense.is_big():
             big = "(!)"
@@ -106,7 +107,7 @@ def import_csv(csv_file):
     expenses = read_or_init()
 
     try: 
-        with open(csv_file) as stream:
+        with open(csv_file, 'rb') as stream:
             reader = csv.DictReader(stream)
             for row in reader:
                 expense = Expenses(
