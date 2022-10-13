@@ -84,5 +84,48 @@ def report():
     total = total_expenses(expenses)
     print_expenses(expenses, total)
 
+@cli.command()
+@click.argument('amount', type=int)
+@click.argument('desc')
+def add(amount, desc):
+    expenses = read_or_init()
+    next_id = new_id(expenses)
+    try:
+        new_expense = Expenses(amount=amount, description=desc, id=next_id)
+    except ValueError as e:
+        print("ERROR", e.args[0])
+        sys.exit(1)
 
+    expenses.append(new_expense)
+    save_db(expenses)
+    print("Succes")
+
+@cli.command()
+@click.argument('csv_file')
+def import_csv(csv_file):
+    expenses = read_or_init()
+
+    try: 
+        with open(csv_file) as stream:
+            reader = csv.DictReader(stream)
+            for row in reader:
+                expense = Expenses(
+                    id=new_id(expenses),
+                    description=row['description'],
+                    amount=float(row['amount']),
+                )
+                expenses.append(expense)
+    except FileNotFoundError:
+        print("Couldn not find a file")
+        sys.exit(1)
+    save_db(expenses)
+    print("Works")
+
+@cli.command()
+def export_python():
+    expenses = read_or_init
+    print(expenses)
+
+if __name__ == "__main__":
+    cli()
     
