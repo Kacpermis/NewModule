@@ -63,5 +63,26 @@ def total_expenses(expenses):
     amounts = [e.amount for e in expenses]
     return sum(amounts)
 
+def print_expenses(expenses, total_expenses):
+    print(f'--ID-- -AMOUTNT- -BIG?- --DESCRIPTION-------')
+    for expense in expenses:
+        if expense.is_big():
+            big = "(!)"
+        else:
+            big = ""
+        print(f'{expense.id:4} {expense.amount:10} {big:^8} {expense.description:^8}')
+    print(f"TOTAL: {total_expenses:8}")
+
+
+@click.group()
+def cli():
+    pass
+
+@cli.command()
+def report():
+    expenses = read_or_init()
+    total = total_expenses(expenses)
+    print_expenses(expenses, total)
+
 
     
