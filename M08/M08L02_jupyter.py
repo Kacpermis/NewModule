@@ -13,3 +13,4 @@
 ### 🔴 Ćwiczenie
 
 # Powtórz wszystkie kroki powyżej.
+print(len("text"))
